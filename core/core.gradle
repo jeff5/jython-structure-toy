@@ -1,0 +1,13 @@
+/*
+ * core subproject (a library with selective exports).
+ */
+
+plugins {
+    id 'java-library'
+}
+
+repositories {
+    // Use Maven Central for resolving dependencies.
+    mavenCentral()
+}
+

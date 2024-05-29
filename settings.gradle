@@ -1,0 +1,19 @@
+/*
+ * $projectDir/settings.gradle
+ *
+ * Settings file for multiproject build exploring visibility across modules
+ * of a simplified model of Jython.
+ */
+
+rootProject.name = 'Structure Toy'
+
+
+include 'core'      // A library where not all packages are with exported
+include 'app'       // An application using classes from core
+
+// Sub-project build files are named after the sub-project.
+
+rootProject.children.each {
+    it.buildFileName = it.name + '.gradle'
+    // println "" + it + " : " + it.buildFileName
+}

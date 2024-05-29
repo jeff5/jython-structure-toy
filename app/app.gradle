@@ -1,0 +1,22 @@
+/*
+ * app subproject (uses classes from the core sub-project).
+ */
+
+plugins {
+    // Apply the Java application plugin.
+    id 'application'
+}
+
+repositories {
+    // Use Maven Central for resolving dependencies.
+    mavenCentral()
+}
+
+dependencies {
+    implementation project(':core')
+}
+
+application {
+    mainModule = 'example.app'
+    mainClass = 'example.app.Application'
+}
