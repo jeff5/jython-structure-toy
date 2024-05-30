@@ -173,9 +173,30 @@ All we've done is organise our project the way Gradle finds natural.
 
 ### It's really very simple
 
-The use of modules to control visibility brings one simple constraint. We have two (only two) categories of package::interface packages (public classes are API), and)internal packages (public classes are not API).
+The use of modules to control visibility brings one simple constraint.
+We have two (only two) categories of package:
+interface packages (public classes are API),
+and internal packages (public classes that are not API).
 We may think of interface packages as "front row" and
 internal packages as "back row".
+
+```mermaid
+flowchart LR
+  subgraph module example.core
+    direction LR
+    example.internal
+    subgraph exported
+      direction TB
+      example.core
+      example.runtime
+    end
+  end
+  %%example.core-->example.runtime
+  example.core-->example.internal;
+  example.runtime-->example.internal;
+  example.app-->example.core;
+  example.app-->example.runtime;
+```
 
 We may organise, and re-organise, the back row (or rows) how we please,
 to satisfy an architectural discipline about the flow of imports.
@@ -193,7 +214,26 @@ classes in the back row for their functioning.
 Meanwhile front row packages define interfaces or data types
 that the back row must reference in implementation.
 
-It may be that, with a few more front row packages,
+```mermaid
+flowchart LR
+  example.app
+  subgraph module example.core
+    direction LR
+    subgraph exported
+      example.core
+      example.runtime
+    end
+    example.core-->example.runtime
+    example.core-->example.internal;
+    example.runtime-->example.internal;
+    example.internal-->example.core
+    example.internal--> example.runtime
+  end
+  example.app-->example.core;
+  example.app-->example.runtime;
+```
+
+It may be that, with a few more packages,
 we may break these cycles.
 
 
