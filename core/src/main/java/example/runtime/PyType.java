@@ -16,20 +16,19 @@ import example.internal.PyBaseObject;
 import example.internal.PyMethodDescr;
 import example.runtime.Exposed.PythonMethod;
 
-public class PyType implements WithDict {
+public class PyType extends Representation  implements WithDict {
 
     /** Mapping of Java class to PyType representing it. */
     private static Map<Class<?>, PyType> reg = new HashMap<>();
 
     private final String name;
-    private final Class<?> implClass;
 
     private HashMap<Object, Object> dict = new HashMap<>();
 
-    /** Construct a type with the given implementation class. */
-    PyType(String name, Class<?> implClass) {
+    /** Construct a type with the given representation class. */
+    PyType(String name, Class<?> javaClass) {
+        super(javaClass);
         this.name = name;
-        this.implClass = implClass;
     }
 
     @Override
@@ -40,8 +39,6 @@ public class PyType implements WithDict {
 
     /** Name of this type. */
     public String getName() { return name; }
-
-    public Class<?> getImplClass() { return implClass; }
 
     /**
      * Map a Java class to the Python {@code type} object that gives
@@ -62,6 +59,11 @@ public class PyType implements WithDict {
         } while (c != null);
         // c is Object or an interface
         return PyBaseObject.TYPE;
+    }
+
+    @Override
+    public PyType pythonType(Object x) {
+        return this;
     }
 
     /**
@@ -90,16 +92,16 @@ public class PyType implements WithDict {
 
     /**
      * Add a Python type object to the registry for the specified
-     * implementation class.
+     * representation class.
      *
      * @param name of the type in Python
-     * @param implClass implementation class
+     * @param javaClass representation class
      * @param lookup loan of access rights
      * @return registered type object
      */
-    public static PyType register(String name, Class<?> implClass,
+    public static PyType register(String name, Class<?> javaClass,
             Lookup lookup) {
-        PyType type = new PyType(name, implClass);
+        PyType type = new PyType(name, javaClass);
         Class<?> defnClass = lookup.lookupClass();
         for (Method m : defnClass.getDeclaredMethods()) {
             PythonMethod pm =
@@ -109,7 +111,7 @@ public class PyType implements WithDict {
                 type.addMethod(m, lookup);
             }
         }
-        reg.put(implClass, type);
+        reg.put(javaClass, type);
         return type;
     }
 
@@ -139,7 +141,7 @@ public class PyType implements WithDict {
             MethodType mt = mh.type();
             int n = mt.parameterCount();
             assert n > 0;
-            assert mt.parameterType(0).isAssignableFrom(implClass);
+            assert mt.parameterType(0).isAssignableFrom(javaClass);
             if (n == 1) {
                 // Signature is currently (S)T
                 // Add an ignored array argument (no args at run-time).
