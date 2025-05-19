@@ -1,7 +1,7 @@
 package example.internal;
 
 import example.runtime.Crafted;
-import example.runtime.PyType;
+import example.runtime.PyTypeImpl;
 
 /**
  * Class that may be used as a base for Python objects (but doesn't have
@@ -9,7 +9,7 @@ import example.runtime.PyType;
  */
 abstract class AbstractPyObject implements Crafted {
 
-    private PyType type;
+    private PyTypeImpl type;
 
     /**
      * Constructor specifying the Python type, as returned by
@@ -18,10 +18,8 @@ abstract class AbstractPyObject implements Crafted {
      *
      * @param type actual Python type being created
      */
-    protected AbstractPyObject(PyType type) { this.type = type; }
+    protected AbstractPyObject(PyTypeImpl type) { this.type = type; }
 
     @Override
-    public PyType getType() { return type; }
-
-
+    public PyTypeImpl getType() { return type; }
 }

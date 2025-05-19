@@ -5,5 +5,5 @@ package example.runtime;
  * reports an explicit type.
  */
 public interface Crafted {
-    PyType getType();
+    PyTypeImpl getType();
 }

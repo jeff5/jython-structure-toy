@@ -1,6 +1,6 @@
 package example.internal;
 
-import example.runtime.PyType;
+import example.runtime.PyTypeImpl;
 import example.runtime.PyUtil;
 
 /**
@@ -27,7 +27,7 @@ public class ImplUtil extends PyUtil {
      */
     public static String toAt(Object o) {
         // For the time being type name means:
-        String typeName = PyType.of(o).getName();
+        String typeName = PyTypeImpl.of(o).getName();
         return String.format("%s object at %#x", typeName, id(o));
     }
 

@@ -3,11 +3,11 @@ package example.internal;
 import java.lang.invoke.MethodHandle;
 import java.lang.invoke.MethodHandles;
 
+import example.core.PyType;
 import example.runtime.Crafted;
 import example.runtime.Exposed;
 import example.runtime.MT;
-import example.runtime.PyModule;
-import example.runtime.PyType;
+import example.runtime.PyTypeImpl;
 import example.runtime.PyUtil;
 
 public class PyMethodDescr implements Crafted {
@@ -32,7 +32,7 @@ public class PyMethodDescr implements Crafted {
     }
 
     @Override
-    public PyType getType() { return TYPE; }
+    public PyTypeImpl getType() { return TYPE; }
 
     /**
      * Return the unbound handle contained in this descriptor.
@@ -67,6 +67,6 @@ public class PyMethodDescr implements Crafted {
     @Override
     public String toString() { return PyUtil.defaultToString(this); }
 
-    public static final PyType TYPE = PyType
+    public static final PyTypeImpl TYPE = PyTypeImpl
             .register("method_descriptor", MethodHandles.lookup());
 }

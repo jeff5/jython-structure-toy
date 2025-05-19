@@ -3,7 +3,8 @@ package example.internal;
 import java.lang.invoke.MethodHandles;
 
 import example.runtime.Exposed;
-import example.runtime.PyType;
+import example.runtime.PyTypeImpl;
+import example.runtime.PythonRuntime;
 
 /**
  * The Python {@code object} object. In the toy implementation we do not
@@ -31,6 +32,7 @@ public class PyBaseObject {
     }
 
     /** The type object of {@code object} objects. */
-    public static final PyType TYPE = PyType.register("object",
+    public static final PyTypeImpl TYPE =
+            PythonRuntime.typeFactory.register("object",
             Object.class, MethodHandles.lookup());
 }

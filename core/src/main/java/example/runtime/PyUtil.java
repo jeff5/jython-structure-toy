@@ -22,9 +22,9 @@ public class PyUtil {
         if (o == null)
             return "null";
         else {
-            PyType t = null;
+            PyTypeImpl t = null;
             try {
-                t = PyType.of(o);
+                t = PythonRuntime.typeFactory.of(o);
                 Object v = t.lookup("__str__");
                 if (v instanceof PyMethodDescr md) {
                     v = md.__get__(o, null);

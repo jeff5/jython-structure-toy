@@ -8,7 +8,7 @@ import example.runtime.Exposed;
 import example.runtime.JavaModule;
 import example.runtime.MT;
 import example.runtime.PyModule;
-import example.runtime.PyType;
+import example.runtime.PyTypeImpl;
 import example.runtime.PyUtil;
 
 /**
@@ -146,11 +146,11 @@ public class PyJavaFunction implements Crafted {
     }
 
     @Override
-    public PyType getType() { return TYPE; }
+    public PyTypeImpl getType() { return TYPE; }
 
     @Override
     public String toString() { return PyUtil.defaultToString(this); }
 
-    public static final PyType TYPE = PyType.register(
+    public static final PyTypeImpl TYPE = PyTypeImpl.register(
             "builtin_function_or_method", MethodHandles.lookup());
 }

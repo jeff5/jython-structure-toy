@@ -3,7 +3,7 @@ package example.app;
 import java.lang.invoke.MethodHandles;
 
 import example.runtime.Exposed;
-import example.runtime.PyType;
+import example.runtime.PyTypeImpl;
 import example.runtime.PyUtil;
 
 /**
@@ -27,6 +27,6 @@ class MyType {
     @Override
     public String toString() { return PyUtil.defaultToString(this); }
 
-    static final PyType TYPE = PyType.register("MyType", MyType.class,
-            MethodHandles.lookup());
+    static final PyTypeImpl TYPE = PyTypeImpl.register("MyType",
+            MyType.class, MethodHandles.lookup());
 }

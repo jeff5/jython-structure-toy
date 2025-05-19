@@ -9,7 +9,7 @@ import example.internal.PyInt;
 import example.internal.PyJavaFunction;
 import example.internal.PyMethodDescr;
 import example.runtime.JavaModule;
-import example.runtime.PyType;
+import example.runtime.PyTypeImpl;
 
 /**
  * An {@code Interpreter} is the wider context for execution, mainly
@@ -52,7 +52,7 @@ public class Interp {
     private static Object invoke(String name, Object o,
             Object... args) {
         try {
-            PyType t = PyType.of(o);
+            PyTypeImpl t = PyTypeImpl.of(o);
             Object v = t.lookup(name);
             // If the retrieved object is a descriptor, bind it.
             if (v instanceof PyMethodDescr md) {
@@ -129,7 +129,7 @@ public class Interp {
      * We reference the type objects of some built-in types to ensure
      * they are registered. Order is delicate.
      */
-    static PyType TYPE_TYPE = PyType.TYPE; // First!
+    static PyType TYPE_TYPE = PyTypeImpl.TYPE; // First!
     static PyType METHOD_DESCR_TYPE = PyMethodDescr.TYPE;
     static PyType JAVA_FUNCTION_TYPE = PyJavaFunction.TYPE;
     static PyType OBJECT_TYPE = PyBaseObject.TYPE;

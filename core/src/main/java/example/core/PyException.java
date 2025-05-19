@@ -15,4 +15,6 @@ public class PyException extends RuntimeException {
             return new PyException("Internal error", t);
         }
     }
+
+    private static final long serialVersionUID = 1L;
 }

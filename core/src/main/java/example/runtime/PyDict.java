@@ -16,7 +16,6 @@ public class PyDict extends AbstractMap<Object, Object>
     private final LinkedHashMap<Object, Object> map =
             new LinkedHashMap<Object, Object>();
 
-
     // slot functions -------------------------------------------------
 
     @SuppressWarnings("unused")
@@ -36,10 +35,10 @@ public class PyDict extends AbstractMap<Object, Object>
     // plumbing -------------------------------------------------------
 
     @Override
-    public PyType getType() { return TYPE; }
+    public PyTypeImpl getType() { return TYPE; }
 
-    public static final PyType TYPE =
-            PyType.register("dict", MethodHandles.lookup());
+    public static final PyTypeImpl TYPE = PyTypeImpl
+            .register("dict", MethodHandles.lookup());
 
     @Override
     public Set<Entry<Object, Object>> entrySet() {

@@ -108,27 +108,6 @@ public class ModuleDef<JM extends JavaModule>
     }
 
     /**
-     * Add a {@link MethodDef} for the given method {@code m} to the
-     * working list.
-     */
-    private static void addMethod__old(List<MethodDef> methods,
-            String moduleName, Method m, Lookup lookup) {
-        String name = m.getName();
-        try {
-            // Strip the handle to the right signature (may fail).
-            MethodHandle mh = lookup.unreflect(m);
-            mh = mh.asType(MT.METHOD);
-            MethodDef md = new MethodDef(name, mh);
-            methods.add(md);
-        } catch (ReflectiveOperationException e) {
-            String msg = String.format(
-                    "Cannot expose method %s.%s: due to %s", moduleName,
-                    name, e);
-            throw new PyException(msg, e);
-        }
-    }
-
-    /**
      * Get the method definitions. This method is provided for test use
      * only. It isn't safe for public use.
      *
