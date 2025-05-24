@@ -1,12 +1,13 @@
-package example.runtime;
+package example.internal;
 
 import java.lang.invoke.MethodHandles.Lookup;
 import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 
-import example.core.TypeFactory;
-import example.internal.PyBaseObject;
+import example.runtime.PyObject;
+import example.runtime.PyType;
+import example.runtime.TypeFactory;
 import example.runtime.Exposed.PythonMethod;
 
 public class TypeFactoryImpl implements TypeFactory {
@@ -15,7 +16,7 @@ public class TypeFactoryImpl implements TypeFactory {
     private Map<Class<?>, PyTypeImpl> reg = new HashMap<>();
 
     /** Construct a type factory. */
-    TypeFactoryImpl() {}
+    public TypeFactoryImpl() {}
 
     /**
      * Map a Java class to the Python {@code type} object that gives
@@ -26,7 +27,7 @@ public class TypeFactoryImpl implements TypeFactory {
      * @return {@code type} providing Python semantics
      */
     @Override
-    public PyTypeImpl fromClass(Class<?> c) {
+    public PyType fromClass(Class<?> c) {
         do {
             PyTypeImpl t = reg.get(c);
             if (t != null) {
@@ -36,7 +37,7 @@ public class TypeFactoryImpl implements TypeFactory {
             }
         } while (c != null);
         // c is Object or an interface
-        return PyBaseObject.TYPE;
+        return PyObject.TYPE;
     }
 
     /**
@@ -48,7 +49,7 @@ public class TypeFactoryImpl implements TypeFactory {
      * @return the Python type of {@code obj}
      */
     @Override
-    public PyTypeImpl of(Object obj) {
+    public PyType of(Object obj) {
         return fromClass(obj.getClass());
     }
 

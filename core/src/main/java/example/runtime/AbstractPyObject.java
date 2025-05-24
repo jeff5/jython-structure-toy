@@ -1,13 +1,12 @@
-package example.internal;
+package example.runtime;
 
-import example.runtime.Crafted;
-import example.runtime.PyTypeImpl;
+import example.internal.PyTypeImpl;
 
 /**
  * Class that may be used as a base for Python objects (but doesn't have
  * to be) to supply some universally needed methods and the type.
  */
-abstract class AbstractPyObject implements Crafted {
+abstract class AbstractPyObject implements WithType {
 
     private PyTypeImpl type;
 

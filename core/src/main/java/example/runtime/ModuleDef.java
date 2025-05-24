@@ -1,6 +1,6 @@
 // Copyright (c)2024 Jython Developers.
 // Licensed to PSF under a contributor agreement.
-package example.internal;
+package example.runtime;
 
 import static example.internal.ClassShorthand.OA;
 
@@ -13,11 +13,7 @@ import java.lang.reflect.Method;
 import java.util.LinkedList;
 import java.util.List;
 
-import example.core.PyException;
 import example.runtime.Exposed.PythonMethod;
-import example.runtime.JavaModule;
-import example.runtime.MT;
-import example.runtime.PyDict;
 
 /**
  * A {@code ModuleDef} is a definition from which instances of a module

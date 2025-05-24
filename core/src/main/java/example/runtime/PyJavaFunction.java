@@ -1,15 +1,9 @@
-package example.internal;
+package example.runtime;
 
 import java.lang.invoke.MethodHandle;
 import java.lang.invoke.MethodHandles;
 
-import example.runtime.Crafted;
-import example.runtime.Exposed;
-import example.runtime.JavaModule;
-import example.runtime.MT;
-import example.runtime.PyModule;
-import example.runtime.PyTypeImpl;
-import example.runtime.PyUtil;
+import example.internal.ImplUtil;
 
 /**
  * A {@code PyJavaFunction} represents the Python type
@@ -18,7 +12,7 @@ import example.runtime.PyUtil;
  * defines the instance method {@code __call__}, taking as parameter the
  * array of arguments supplied from the call site.
  */
-public class PyJavaFunction implements Crafted {
+public class PyJavaFunction implements WithType {
 
     /** Name of the function. */
     final String name;
@@ -146,11 +140,12 @@ public class PyJavaFunction implements Crafted {
     }
 
     @Override
-    public PyTypeImpl getType() { return TYPE; }
+    public PyType getType() { return TYPE; }
 
     @Override
     public String toString() { return PyUtil.defaultToString(this); }
 
-    public static final PyTypeImpl TYPE = PyTypeImpl.register(
-            "builtin_function_or_method", MethodHandles.lookup());
+    public static final PyType TYPE = PythonRuntime.typeFactory
+            .register("builtin_function_or_method",
+                    MethodHandles.lookup());
 }

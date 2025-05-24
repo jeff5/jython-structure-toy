@@ -1,8 +1,6 @@
 // Copyright (c)2023 Jython Developers.
 // Licensed to PSF under a contributor agreement.
-package example.core;
-
-import example.runtime.PyDict;
+package example.runtime;
 
 /** Common run-time constants and constructors. */
 public class Py {

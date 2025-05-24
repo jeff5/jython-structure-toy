@@ -4,6 +4,6 @@ package example.runtime;
  * A crafted Python object implementation is one where each instance
  * reports an explicit type.
  */
-public interface Crafted {
-    PyTypeImpl getType();
+public interface WithType {
+    PyType getType();
 }

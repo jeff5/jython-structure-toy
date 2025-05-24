@@ -10,7 +10,7 @@ import java.util.Set;
 import java.util.StringJoiner;
 
 public class PyDict extends AbstractMap<Object, Object>
-        implements Crafted {
+        implements WithType {
 
     /** The dictionary as a hash map preserving insertion order. */
     private final LinkedHashMap<Object, Object> map =
@@ -35,9 +35,9 @@ public class PyDict extends AbstractMap<Object, Object>
     // plumbing -------------------------------------------------------
 
     @Override
-    public PyTypeImpl getType() { return TYPE; }
+    public PyType getType() { return TYPE; }
 
-    public static final PyTypeImpl TYPE = PyTypeImpl
+    public static final PyType TYPE = PythonRuntime.typeFactory
             .register("dict", MethodHandles.lookup());
 
     @Override

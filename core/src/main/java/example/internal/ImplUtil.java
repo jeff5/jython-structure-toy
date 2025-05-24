@@ -1,6 +1,5 @@
 package example.internal;
 
-import example.runtime.PyTypeImpl;
 import example.runtime.PyUtil;
 
 /**

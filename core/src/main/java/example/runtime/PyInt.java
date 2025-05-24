@@ -1,9 +1,6 @@
-package example.internal;
+package example.runtime;
 
 import java.lang.invoke.MethodHandles;
-
-import example.runtime.Exposed;
-import example.runtime.PyTypeImpl;
 
 public class PyInt {
 
@@ -18,6 +15,6 @@ public class PyInt {
         return u + (Integer)v;
     }
 
-    public static final PyTypeImpl TYPE = PyTypeImpl.register("int",
-            Integer.class, MethodHandles.lookup());
+    public static final PyType TYPE = PythonRuntime.typeFactory
+            .register("int", Integer.class, MethodHandles.lookup());
 }

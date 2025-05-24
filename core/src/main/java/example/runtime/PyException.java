@@ -1,4 +1,4 @@
-package example.core;
+package example.runtime;
 
 public class PyException extends RuntimeException {
 

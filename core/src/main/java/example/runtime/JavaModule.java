@@ -2,9 +2,6 @@ package example.runtime;
 
 import java.lang.invoke.MethodHandles.Lookup;
 
-import example.core.PyException;
-import example.internal.ModuleDef;
-
 /**
  * Base class of built-in and extension modules written in Java.
  */

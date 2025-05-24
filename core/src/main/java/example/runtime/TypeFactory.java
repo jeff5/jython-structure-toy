@@ -1,4 +1,4 @@
-package example.core;
+package example.runtime;
 
 import java.lang.invoke.MethodHandles.Lookup;
 

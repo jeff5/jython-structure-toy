@@ -4,12 +4,14 @@ package example.core;
 
 import java.lang.reflect.Constructor;
 
-import example.internal.PyBaseObject;
-import example.internal.PyInt;
-import example.internal.PyJavaFunction;
-import example.internal.PyMethodDescr;
+import example.internal.PyTypeImpl;
 import example.runtime.JavaModule;
-import example.runtime.PyTypeImpl;
+import example.runtime.PyException;
+import example.runtime.PyInt;
+import example.runtime.PyJavaFunction;
+import example.runtime.PyMethodDescr;
+import example.runtime.PyObject;
+import example.runtime.PyType;
 
 /**
  * An {@code Interpreter} is the wider context for execution, mainly
@@ -52,7 +54,7 @@ public class Interp {
     private static Object invoke(String name, Object o,
             Object... args) {
         try {
-            PyTypeImpl t = PyTypeImpl.of(o);
+            PyType t = PyTypeImpl.of(o);
             Object v = t.lookup(name);
             // If the retrieved object is a descriptor, bind it.
             if (v instanceof PyMethodDescr md) {
@@ -132,6 +134,6 @@ public class Interp {
     static PyType TYPE_TYPE = PyTypeImpl.TYPE; // First!
     static PyType METHOD_DESCR_TYPE = PyMethodDescr.TYPE;
     static PyType JAVA_FUNCTION_TYPE = PyJavaFunction.TYPE;
-    static PyType OBJECT_TYPE = PyBaseObject.TYPE;
+    static PyType OBJECT_TYPE = PyObject.TYPE;
     static PyType INT_TYPE = PyInt.TYPE;
 }

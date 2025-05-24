@@ -3,8 +3,9 @@ package example.app;
 import java.lang.invoke.MethodHandles;
 
 import example.runtime.Exposed;
-import example.runtime.PyTypeImpl;
+import example.runtime.PyType;
 import example.runtime.PyUtil;
+import example.runtime.PythonRuntime;
 
 /**
  * A type used in the {@link Application} and defined with facilities in
@@ -27,6 +28,6 @@ class MyType {
     @Override
     public String toString() { return PyUtil.defaultToString(this); }
 
-    static final PyTypeImpl TYPE = PyTypeImpl.register("MyType",
+    static final PyType TYPE = PythonRuntime.typeFactory.register("MyType",
             MyType.class, MethodHandles.lookup());
 }

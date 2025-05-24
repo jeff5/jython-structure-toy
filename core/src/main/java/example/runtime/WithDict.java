@@ -7,7 +7,7 @@ import java.util.Map;
  * not necessarily a Python {@code dict} or directly
  * writable). A {@code type} object .
  */
-public interface WithDict extends Crafted {
+public interface WithDict extends WithType {
     /**
      * The instance dictionary. This is not necessarily a Python
      * {@code dict}, and may not be directly writable. Some implementing

@@ -1,6 +1,8 @@
-package example.runtime;
+package example.internal;
 
-public abstract class RepresentationImpl {
+import example.runtime.Representation;
+
+public abstract class RepresentationImpl implements Representation {
     /**
      * The common type (class or interface) of Java classes representing
      * instances of the related Python {@code type}.
@@ -18,8 +20,6 @@ public abstract class RepresentationImpl {
         this.javaClass = javaClass;
     }
 
-    RepresentationImpl() {this(null);}
-
     /**
      * Get the Python type of the object <i>given that</i> this is the
      * representation object for it.
@@ -27,13 +27,15 @@ public abstract class RepresentationImpl {
      * @param x subject of the enquiry
      * @return {@code type(x)}
      */
+    @Override
     public abstract PyTypeImpl pythonType(Object x);
+
     /**
      * A base Java class representing instances of the related Python
      * {@code type} associated with this {@code Representation}.
      *
      * @return base class of the representation
      */
+    @Override
     public Class<?> javaClass() { return javaClass; }
-
 }

@@ -1,8 +1,6 @@
 package example.runtime;
 
 import example.internal.ImplUtil;
-import example.internal.PyJavaFunction;
-import example.internal.PyMethodDescr;
 
 /**
  * Useful constants, minor types and methods for those implementing
@@ -22,7 +20,7 @@ public class PyUtil {
         if (o == null)
             return "null";
         else {
-            PyTypeImpl t = null;
+            PyType t = null;
             try {
                 t = PythonRuntime.typeFactory.of(o);
                 Object v = t.lookup("__str__");

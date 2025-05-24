@@ -27,7 +27,7 @@ public abstract class PyModule implements WithDict {
     }
 
     @Override
-    public PyTypeImpl getType() { return TYPE; }
+    public PyType getType() { return TYPE; }
 
     @Override
     public PyDict getDict() { return dict; }
@@ -43,6 +43,6 @@ public abstract class PyModule implements WithDict {
     @Override
     public String toString() { return PyUtil.defaultToString(this); }
 
-    public static final PyTypeImpl TYPE =
-            PyTypeImpl.register("module", MethodHandles.lookup());
+    public static final PyType TYPE =
+            PythonRuntime.typeFactory.register("module", MethodHandles.lookup());
 }

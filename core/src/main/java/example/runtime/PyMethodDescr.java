@@ -1,16 +1,9 @@
-package example.internal;
+package example.runtime;
 
 import java.lang.invoke.MethodHandle;
 import java.lang.invoke.MethodHandles;
 
-import example.core.PyType;
-import example.runtime.Crafted;
-import example.runtime.Exposed;
-import example.runtime.MT;
-import example.runtime.PyTypeImpl;
-import example.runtime.PyUtil;
-
-public class PyMethodDescr implements Crafted {
+public class PyMethodDescr implements WithType {
 
     public final PyType objclass;
     public final String name;
@@ -32,7 +25,7 @@ public class PyMethodDescr implements Crafted {
     }
 
     @Override
-    public PyTypeImpl getType() { return TYPE; }
+    public PyType getType() { return TYPE; }
 
     /**
      * Return the unbound handle contained in this descriptor.
@@ -67,6 +60,6 @@ public class PyMethodDescr implements Crafted {
     @Override
     public String toString() { return PyUtil.defaultToString(this); }
 
-    public static final PyTypeImpl TYPE = PyTypeImpl
+    public static final PyType TYPE = PythonRuntime.typeFactory
             .register("method_descriptor", MethodHandles.lookup());
 }

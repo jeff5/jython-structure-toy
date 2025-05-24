@@ -1,5 +1,7 @@
 package example.runtime;
 
+import example.internal.TypeFactoryImpl;
+
 /**
  * Static instances of the implementation types.
  * <p>
@@ -7,6 +9,6 @@ package example.runtime;
  */
 public class PythonRuntime {
 
-    public static final TypeFactoryImpl typeFactory =
+    public static final TypeFactory typeFactory =
             new TypeFactoryImpl();
 }

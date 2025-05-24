@@ -1,4 +1,4 @@
-package example.runtime;
+package example.internal;
 
 import static example.internal.ClassShorthand.OA;
 
@@ -11,9 +11,12 @@ import java.lang.reflect.Modifier;
 import java.util.HashMap;
 import java.util.Map;
 
-import example.core.PyException;
-import example.core.PyType;
-import example.internal.PyMethodDescr;
+import example.runtime.MT;
+import example.runtime.PyException;
+import example.runtime.PyMethodDescr;
+import example.runtime.PyType;
+import example.runtime.PythonRuntime;
+import example.runtime.WithDict;
 
 public class PyTypeImpl extends RepresentationImpl
         implements PyType, WithDict {
@@ -23,13 +26,13 @@ public class PyTypeImpl extends RepresentationImpl
     private HashMap<Object, Object> dict = new HashMap<>();
 
     /** Construct a type with the given representation class. */
-    PyTypeImpl(String name, Class<?> javaClass) {
+    public PyTypeImpl(String name, Class<?> javaClass) {
         super(javaClass);
         this.name = name;
     }
 
     @Override
-    public PyTypeImpl getType() { return TYPE; }
+    public PyType getType() { return TYPE; }
 
     @Override
     public Map<Object, Object> getDict() { return dict; }
@@ -52,7 +55,7 @@ public class PyTypeImpl extends RepresentationImpl
      * @param m method to describe
      * @param lookup access rights to defining class
      */
-    void addMethod(Method m, Lookup lookup) {
+    public void addMethod(Method m, Lookup lookup) {
         String mName = m.getName();
         // Declared static with explicit self type S (in toy).
         assert Modifier.isStatic(m.getModifiers());
@@ -99,7 +102,7 @@ public class PyTypeImpl extends RepresentationImpl
     @Override
     public Object lookup(String name) { return dict.get(name); }
 
-    public static PyTypeImpl TYPE =
+    public static PyType TYPE =
             register("type", MethodHandles.lookup());
 
     @Override
@@ -115,7 +118,7 @@ public class PyTypeImpl extends RepresentationImpl
      * @param c class on which operations are required
      * @return {@code type} providing Python semantics
      */
-    public static PyTypeImpl fromClass(Class<?> c) {
+    public static PyType fromClass(Class<?> c) {
         return PythonRuntime.typeFactory.fromClass(c);
     }
 
@@ -127,7 +130,7 @@ public class PyTypeImpl extends RepresentationImpl
      * @param obj to inspect
      * @return the Python type of {@code obj}
      */
-    public static PyTypeImpl of(Object obj) {
+    public static PyType of(Object obj) {
         return fromClass(obj.getClass());
     }
 
@@ -139,7 +142,7 @@ public class PyTypeImpl extends RepresentationImpl
      * @param lookup loan of access rights
      * @return registered type object
      */
-    public static PyTypeImpl register(String name, Lookup lookup) {
+    public static PyType register(String name, Lookup lookup) {
         return register(name, lookup.lookupClass(), lookup);
     }
 
@@ -152,7 +155,7 @@ public class PyTypeImpl extends RepresentationImpl
      * @param lookup loan of access rights
      * @return registered type object
      */
-    public static PyTypeImpl register(String name, Class<?> javaClass,
+    public static PyType register(String name, Class<?> javaClass,
             Lookup lookup) {
         return PythonRuntime.typeFactory.register(name, javaClass,
                 lookup);

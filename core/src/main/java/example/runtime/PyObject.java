@@ -1,19 +1,17 @@
-package example.internal;
+package example.runtime;
 
 import java.lang.invoke.MethodHandles;
 
-import example.runtime.Exposed;
-import example.runtime.PyTypeImpl;
-import example.runtime.PythonRuntime;
+import example.internal.ImplUtil;
 
 /**
  * The Python {@code object} object. In the toy implementation we do not
- * have MRO. If we did, this {@link PyBaseObject#TYPE} would be at the
+ * have MRO. If we did, this {@link PyObject#TYPE} would be at the
  * end of every type's except its own.
  */
-public class PyBaseObject {
+public class PyObject {
 
-    private PyBaseObject() {}
+    private PyObject() {}
 
     // Special methods ------------------------------------------------
 
@@ -32,7 +30,7 @@ public class PyBaseObject {
     }
 
     /** The type object of {@code object} objects. */
-    public static final PyTypeImpl TYPE =
+    public static final PyType TYPE =
             PythonRuntime.typeFactory.register("object",
             Object.class, MethodHandles.lookup());
 }
